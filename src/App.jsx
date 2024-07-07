@@ -13,11 +13,16 @@ const App = () => {
     const [blogs, setBlogs] = useState([])
 
     useEffect(() => {
-        // const fetchData = async () => {
-        //     const allBlogs = await blogService.getAll()
-        //     setBlogs(allBlogs)
-        // }
-        // fetchData()
+        const loggedUserJSON = window.localStorage.getItem('loggedInUser')
+        const loadData = async () => {
+            const user = JSON.parse(loggedUserJSON)
+            setUser(user)
+            blogService.setToken(user.token)
+            const allBlogs = await blogService.getAll()
+            setBlogs(allBlogs)
+        }
+        if (loggedUserJSON) loadData()
+        
     }, [])
 
     const handleLogin = async (e) => {
@@ -28,6 +33,9 @@ const App = () => {
                     username,
                     password
                 })
+            window.localStorage.setItem(
+                'loggedInUser', JSON.stringify(user)
+            )
             blogService.setToken(user.token)    
             setUser(user)
             setPassword('')
@@ -39,15 +47,19 @@ const App = () => {
         }
     }
 
-    const blogsToShow = blogs.filter((blog) => blog.user.username === user.username)
+    const handleLogout = () => {
+        window.localStorage.removeItem('loggedInUser')
+        setUser(null)
+        setBlogs([])
+    }
 
-    console.log(!blogsToShow, typeof(blogsToShow))
+    const blogsToShow = blogs.filter((blog) => blog.user.username === user.username)
 
     return (
         <div>
             {user === null
             ? <LoginForm username={username} password={password} handleUsernameChange={setUsername} handlePasswordChange={setPassword} handleLogin={handleLogin}/>
-            : <Blogs blogs={blogsToShow} name={user.name}/>}
+            : <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout}/>}
             
         </div>
         

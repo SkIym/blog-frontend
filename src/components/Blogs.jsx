@@ -1,10 +1,13 @@
-const Blogs = ({ blogs, name }) => {
+const Blogs = ({ blogs, name, handleLogout }) => {
 
 
     return (
         <div>
             <h3>Blogs</h3>
-            <p>{name} logged in</p>
+            <div>
+                <p>{name} logged in</p>
+                <button onClick={handleLogout}>Logout</button>
+            </div>
             <div>
                 {blogs.length === 0 
                     ? <div>No blogs yet</div> : 
