@@ -12,6 +12,12 @@ const App = () => {
     const [user, setUser] = useState(null)
     const [blogs, setBlogs] = useState([])
 
+    const [newBlog, setNewBlog] = useState({
+        title: '',
+        author: '',
+        url: '',
+    })
+
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedInUser')
         const loadData = async () => {
@@ -53,13 +59,34 @@ const App = () => {
         setBlogs([])
     }
 
+    // console.log('Blogs before blogstoshow filer', blogs)
     const blogsToShow = blogs.filter((blog) => blog.user.username === user.username)
+    // console.log('blos to show after filter', blogsToShow)
+
+    const addBlog = async (e) => {
+        e.preventDefault()
+        const blogObject = {...newBlog}
+        try {
+            const returnedBlog = await blogService.create(blogObject)
+            console.log(returnedBlog)
+            setNewBlog({
+                title: '',
+                author: '',
+                url: '',
+            })
+            setBlogs([...blogs, returnedBlog])
+        } catch(exception) {
+            console.log(exception)
+        }
+    }
 
     return (
+        
         <div>
+            {console.log('From App.jsx', blogsToShow)}
             {user === null
             ? <LoginForm username={username} password={password} handleUsernameChange={setUsername} handlePasswordChange={setPassword} handleLogin={handleLogin}/>
-            : <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout}/>}
+            : <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} newBlog={newBlog} addBlog={addBlog} handleNewBlogChange={setNewBlog}/>}
             
         </div>
         
