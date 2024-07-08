@@ -3,8 +3,13 @@ const baseUrl = '/api/login'
 
 
 const login = async (creds) => {
-    const response = await axios.post(baseUrl, creds)
-    return response.data
+    try {
+        const response = await axios.post(baseUrl, creds)
+        return response.data
+    } catch(error) {
+        return Promise.reject(error.response.data.error)
+    }
+    
 }
 
 

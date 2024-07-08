@@ -1,13 +1,15 @@
 import BlogList from "./BlogList"
 import BlogForm from "./BlogForm"
+import Notification from "./Notifications"
 
-const Blogs = ({ blogs, name, handleLogout, newBlog, addBlog, handleNewBlogChange }) => {
+const Blogs = ({ blogs, name, handleLogout, newBlog, addBlog, handleNewBlogChange, error, errorMessage }) => {
 
 
     return (
         <div>
-            {console.log('From Blog.jsx', blogs)}
+            
             <h3>Blogs</h3>
+            <Notification flag={error} message={errorMessage}/>
             <div>
                 <p>{name} logged in</p>
                 <button onClick={handleLogout}>Logout</button>

@@ -2,7 +2,7 @@ const BlogList = ({ blogs }) => {
 
     return (
         <div>
-            {console.log('From BlogList.jsx', blogs)}
+
                 {blogs.length === 0 
                     ? <div>No blogs yet</div> : 
                     <ul>

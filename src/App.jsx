@@ -18,6 +18,9 @@ const App = () => {
         url: '',
     })
 
+    const [notifMessage, setNotifMessage] = useState(null)
+    const [notifKind, setNotifKind] = useState(null)
+
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedInUser')
         const loadData = async () => {
@@ -48,8 +51,15 @@ const App = () => {
             setUsername('')
             const allBlogs = await blogService.getAll()
             setBlogs(allBlogs)
-        } catch(exception) { // no error message component yet
-            console.log(exception)
+
+        } catch(error) { // no error message component yet
+            setNotifKind('error')
+            setNotifMessage(error)
+
+            setTimeout(() => {
+                setNotifKind(null)
+                setNotifMessage(null)
+            }, 5000)
         }
     }
 
@@ -59,9 +69,15 @@ const App = () => {
         setBlogs([])
     }
 
-    // console.log('Blogs before blogstoshow filer', blogs)
-    const blogsToShow = blogs.filter((blog) => blog.user.username === user.username)
-    // console.log('blos to show after filter', blogsToShow)
+    const blogsToShow = blogs.filter((blog) => {
+        // the problem is here, the returnedblog (added to the state by line 81) only consists of the user id property, unlike when you get all the blogs from the start which populates that property with the username
+
+        // either change how the backend responds, or change how you check which blogs are whom in the frontend
+
+        //update: temporary fix on backend side (populate model before sending to frontend)
+        return blog.user.username === user.username
+    }
+    )
 
     const addBlog = async (e) => {
         e.preventDefault()
@@ -75,18 +91,30 @@ const App = () => {
                 url: '',
             })
             setBlogs([...blogs, returnedBlog])
-        } catch(exception) {
-            console.log(exception)
+            setNotifKind('success')
+            setNotifMessage(`A new blog: ${returnedBlog.title} by ${returnedBlog.author} was added`)
+
+            setTimeout(() => {
+                setNotifKind(null)
+                setNotifMessage(null)
+            }, 5000)
+        } catch(error) {
+            setNotifKind('error')
+            setNotifMessage(error)
+
+            setTimeout(() => {
+                setNotifKind(null)
+                setNotifMessage(null)
+            }, 5000)
         }
     }
 
     return (
         
         <div>
-            {console.log('From App.jsx', blogsToShow)}
             {user === null
-            ? <LoginForm username={username} password={password} handleUsernameChange={setUsername} handlePasswordChange={setPassword} handleLogin={handleLogin}/>
-            : <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} newBlog={newBlog} addBlog={addBlog} handleNewBlogChange={setNewBlog}/>}
+            ? <LoginForm username={username} password={password} handleUsernameChange={setUsername} handlePasswordChange={setPassword} handleLogin={handleLogin} error={notifKind} errorMessage={notifMessage}/>
+            : <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} newBlog={newBlog} addBlog={addBlog} handleNewBlogChange={setNewBlog} error={notifKind} errorMessage={notifMessage}/>}
             
         </div>
         
