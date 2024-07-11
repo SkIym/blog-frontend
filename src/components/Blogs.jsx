@@ -1,10 +1,9 @@
 import { useState, useRef } from 'react'
 import BlogList from "./BlogList"
 import BlogForm from "./BlogForm"
-import Notification from "./Notifications"
 import Togglable from "./Togglable"
 
-const Blogs = ({ blogs, name, handleLogout, createBlog, error, errorMessage }) => {
+const Blogs = ({ blogs, name, handleLogout, createBlog }) => {
 
     const [newBlog, setNewBlog] = useState({
         title: '',
@@ -33,8 +32,6 @@ const Blogs = ({ blogs, name, handleLogout, createBlog, error, errorMessage }) =
 
     return (
         <div>
-            
-            <Notification flag={error} message={errorMessage}/>
             <div>
                 <p>{name} logged in</p>
                 <button onClick={handleLogout}>Logout</button>

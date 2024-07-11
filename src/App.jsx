@@ -3,6 +3,7 @@ import LoginForm from './components/LoginForm'
 import Blogs from './components/Blogs'
 import loginService from './services/login'
 import blogService from './services/blogs'
+import Notification from './components/Notifications'
 
 import './App.css'
 
@@ -12,10 +13,8 @@ const App = () => {
     const [user, setUser] = useState(null)
     const [blogs, setBlogs] = useState([])
 
-    
-
-    const [notifMessage, setNotifMessage] = useState(null)
-    const [notifKind, setNotifKind] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null)
+    const [error, setErrorKind] = useState(null)
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedInUser')
@@ -49,12 +48,12 @@ const App = () => {
             setBlogs(allBlogs)
 
         } catch(error) { // no error message component yet
-            setNotifKind('error')
-            setNotifMessage(error)
+            setErrorKind('error')
+            setErrorMessage(error)
 
             setTimeout(() => {
-                setNotifKind(null)
-                setNotifMessage(null)
+                setErrorKind(null)
+                setErrorMessage(null)
             }, 5000)
         }
     }
@@ -81,24 +80,28 @@ const App = () => {
             console.log(returnedBlog)
             
             setBlogs([...blogs, returnedBlog])
-            setNotifKind('success')
-            setNotifMessage(`A new blog: ${returnedBlog.title} by ${returnedBlog.author} was added`)
+            setErrorKind('success')
+            setErrorMessage(`A new blog: ${returnedBlog.title} by ${returnedBlog.author} was added`)
 
             setTimeout(() => {
-                setNotifKind(null)
-                setNotifMessage(null)
+                setErrorKind(null)
+                setErrorMessage(null)
             }, 5000)
         } catch(error) {
-            setNotifKind('error')
-            setNotifMessage(error)
+            setErrorKind('error')
+            setErrorMessage(error)
 
             setTimeout(() => {
-                setNotifKind(null)
-                setNotifMessage(null)
+                setErrorKind(null)
+                setErrorMessage(null)
             }, 5000)
             return Promise.reject()
         }
     }
+
+    const notifBox = () => (
+        <Notification flag={error} message={errorMessage}/>
+    )
 
     return (
         
@@ -107,12 +110,14 @@ const App = () => {
             ? 
             <div>
                 <h3>Log in to application</h3>
-                <LoginForm username={username} password={password} handleUsernameChange={setUsername} handlePasswordChange={setPassword} handleLogin={handleLogin} error={notifKind} errorMessage={notifMessage}/>
+                {notifBox()}
+                <LoginForm username={username} password={password} handleUsernameChange={setUsername} handlePasswordChange={setPassword} handleLogin={handleLogin}/>
             </div>
             : 
             <div>
                 <h3>Blogs</h3>
-                <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} createBlog={addBlog} error={notifKind} errorMessage={notifMessage}/>
+                {notifBox()}
+                <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} createBlog={addBlog}/>
             </div>
             }
             

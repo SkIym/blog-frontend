@@ -1,11 +1,8 @@
 
-import Notification from "./Notifications"
-
-const LoginForm = ({ username, password, handleUsernameChange, handlePasswordChange, handleLogin, error, errorMessage}) => {
+const LoginForm = ({ username, password, handleUsernameChange, handlePasswordChange, handleLogin }) => {
     return (
         <div>
             
-            <Notification flag={error} message={errorMessage}/>
             <form onSubmit={handleLogin}>
                 <div>
                     <span>username</span>
