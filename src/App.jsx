@@ -104,8 +104,17 @@ const App = () => {
         
         <div>
             {user === null
-            ? <LoginForm username={username} password={password} handleUsernameChange={setUsername} handlePasswordChange={setPassword} handleLogin={handleLogin} error={notifKind} errorMessage={notifMessage}/>
-            : <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} createBlog={addBlog} error={notifKind} errorMessage={notifMessage}/>}
+            ? 
+            <div>
+                <h3>Log in to application</h3>
+                <LoginForm username={username} password={password} handleUsernameChange={setUsername} handlePasswordChange={setPassword} handleLogin={handleLogin} error={notifKind} errorMessage={notifMessage}/>
+            </div>
+            : 
+            <div>
+                <h3>Blogs</h3>
+                <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} createBlog={addBlog} error={notifKind} errorMessage={notifMessage}/>
+            </div>
+            }
             
         </div>
         

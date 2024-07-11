@@ -4,7 +4,7 @@ import Notification from "./Notifications"
 const LoginForm = ({ username, password, handleUsernameChange, handlePasswordChange, handleLogin, error, errorMessage}) => {
     return (
         <div>
-            <h3>Log in to application</h3>
+            
             <Notification flag={error} message={errorMessage}/>
             <form onSubmit={handleLogin}>
                 <div>

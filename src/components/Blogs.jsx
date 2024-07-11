@@ -12,6 +12,8 @@ const Blogs = ({ blogs, name, handleLogout, createBlog, error, errorMessage }) =
         url: '',
     })
 
+    const blogFormRef = useRef()
+
     const addBlog = async (e) => {
         e.preventDefault()
         try {
@@ -21,17 +23,17 @@ const Blogs = ({ blogs, name, handleLogout, createBlog, error, errorMessage }) =
                 author: '',
                 url: '',
             })
+            blogFormRef.current.toggleVisibility()
         } catch(exception) {
             return
         }
-        
     }
 
-    const blogFormRef = useRef()
+   
 
     return (
         <div>
-            <h3>Blogs</h3>
+            
             <Notification flag={error} message={errorMessage}/>
             <div>
                 <p>{name} logged in</p>
