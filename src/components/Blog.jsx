@@ -13,7 +13,7 @@ const Blog = ({ blog }) => {
             {showDetails ?
                 <div className='blog-details'>
                     <p>{blog.url}</p>
-                    <p>Likes: {blog.likes}</p>
+                    <p className='like-section'>Likes: {blog.likes} <button className='heart-button'>Heart</button> </p> 
                     <p>Added by: {blog.user.name}</p>
                 </div>
                 
