@@ -12,11 +12,7 @@ const App = () => {
     const [user, setUser] = useState(null)
     const [blogs, setBlogs] = useState([])
 
-    const [newBlog, setNewBlog] = useState({
-        title: '',
-        author: '',
-        url: '',
-    })
+    
 
     const [notifMessage, setNotifMessage] = useState(null)
     const [notifKind, setNotifKind] = useState(null)
@@ -79,17 +75,11 @@ const App = () => {
     }
     )
 
-    const addBlog = async (e) => {
-        e.preventDefault()
-        const blogObject = {...newBlog}
+    const addBlog = async (blogObject) => {
         try {
             const returnedBlog = await blogService.create(blogObject)
             console.log(returnedBlog)
-            setNewBlog({
-                title: '',
-                author: '',
-                url: '',
-            })
+            
             setBlogs([...blogs, returnedBlog])
             setNotifKind('success')
             setNotifMessage(`A new blog: ${returnedBlog.title} by ${returnedBlog.author} was added`)
@@ -106,6 +96,7 @@ const App = () => {
                 setNotifKind(null)
                 setNotifMessage(null)
             }, 5000)
+            return Promise.reject()
         }
     }
 
@@ -114,7 +105,7 @@ const App = () => {
         <div>
             {user === null
             ? <LoginForm username={username} password={password} handleUsernameChange={setUsername} handlePasswordChange={setPassword} handleLogin={handleLogin} error={notifKind} errorMessage={notifMessage}/>
-            : <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} newBlog={newBlog} addBlog={addBlog} handleNewBlogChange={setNewBlog} error={notifKind} errorMessage={notifMessage}/>}
+            : <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} createBlog={addBlog} error={notifKind} errorMessage={notifMessage}/>}
             
         </div>
         
