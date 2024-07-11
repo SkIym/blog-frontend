@@ -105,7 +105,7 @@ const App = () => {
 
     return (
         
-        <div>
+        <div  className='blog-display'>
             {user === null
             ? 
             <div>

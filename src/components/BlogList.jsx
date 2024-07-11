@@ -1,3 +1,5 @@
+import Blog from './Blog'
+
 const BlogList = ({ blogs }) => {
 
     return (
@@ -5,11 +7,9 @@ const BlogList = ({ blogs }) => {
 
                 {blogs.length === 0 
                     ? <div>No blogs yet</div> : 
-                    <ul>
-                    {blogs.map((blog) => {
-                        return <li key={blog.id}>{blog.title} by {blog.author}</li>
-                    })}
-                    </ul>
+                    blogs.map((blog) => {
+                        return <Blog blog={blog} key={blog.id}/>
+                    })   
                 }
         </div>
     )

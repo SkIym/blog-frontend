@@ -32,11 +32,11 @@ const Blogs = ({ blogs, name, handleLogout, createBlog }) => {
 
     return (
         <div>
-            <div>
+            <div className='log-details'>
                 <p>{name} logged in</p>
                 <button onClick={handleLogout}>Logout</button>
             </div>
-            <Togglable buttonLabel='Add New Blog' ref={blogFormRef}>
+            <Togglable buttonLabel='Add New Blog' className='blog-form-container' ref={blogFormRef}>
                 <BlogForm newBlog={newBlog} addBlog={addBlog} handleNewBlogChange={setNewBlog}/>
             </Togglable>
             <BlogList blogs={blogs}/>
