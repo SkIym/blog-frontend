@@ -142,3 +142,15 @@ button {
     border-color: blueviolet;
 }
 
+.remove-button {
+    padding: 5px 10px;
+    border-color: red;
+    transition: all 0.2s;
+}
+
+.remove-button:hover {
+    background-color: red;
+    color: white;
+    border-color: red;
+}
+

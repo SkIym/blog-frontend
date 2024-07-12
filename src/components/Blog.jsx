@@ -1,5 +1,5 @@
 import { useState } from 'react'
-const Blog = ({ blog, updateBlog }) => {
+const Blog = ({ blog, updateBlog, deleteBlog }) => {
 
     const [showDetails, setShowDetails] = useState(false)
 
@@ -12,6 +12,16 @@ const Blog = ({ blog, updateBlog }) => {
         } catch (error) {
             return
         }
+    }
+
+    const handleBlogDelete = async () => {
+        if (window.confirm(`Do you want to remove ${blog.title} by ${blog.author}?`)) {
+            try {
+                await deleteBlog(blog.id)
+            } catch (error) {
+                return
+            }
+        } 
     }
     
     return (
@@ -26,6 +36,7 @@ const Blog = ({ blog, updateBlog }) => {
                     <p>{blog.url}</p>
                     <p className='like-section'>Likes: {blog.likes} <button className='heart-button' onClick={handleBlogUpdate}>Heart</button> </p> 
                     <p>Added by: {blog.user.name}</p>
+                    <button className='remove-button' onClick={handleBlogDelete}>Remove</button>
                 </div>
                 
                 : null}

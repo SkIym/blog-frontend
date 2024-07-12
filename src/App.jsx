@@ -96,25 +96,45 @@ const App = () => {
                 setErrorMessage(null)
             }, 5000)
         } catch (error) {
-            return Promise.reject
+            return Promise.reject()
+        }
+    }
+
+    const deleteBlog = async (id) => {
+        try {
+            await blogService
+                .remove(id)
+            setBlogs(blogs.filter(blog => blog.id !== id))
+            setTimeout(() => {
+                setErrorKind(null)
+                setErrorMessage(null)
+            }, 5000)
+        } catch (error) {
+            setErrorKind('error')
+            setErrorMessage(error)
+
+            setTimeout(() => {
+                setErrorKind(null)
+                setErrorMessage(null)
+            }, 5000)
+            return Promise.reject()
         }
     }
 
     const notifBox = () => (
         <Notification flag={error} message={errorMessage}/>
     )
-    const blogsToShow = blogs.sort((b, a) => a.likes - b.likes)
-    console.log(blogsToShow)
-    // const blogsToShow = blogs.filter((blog) => {
+    let blogsToShow = blogs.sort((b, a) => a.likes - b.likes)
+    blogsToShow = blogsToShow.filter((blog) => {
         
-    //     // the problem is here, the returnedblog (added to the state by line 81) only consists of the user id property, unlike when you get all the blogs from the start which populates that property with the username
+        // the problem is here, the returnedblog (added to the state by line 81) only consists of the user id property, unlike when you get all the blogs from the start which populates that property with the username
 
-    //     // either change how the backend responds, or change how you check which blogs are whom in the frontend
+        // either change how the backend responds, or change how you check which blogs are whom in the frontend
 
-    //     //update: temporary fix on backend side (populate model before sending to frontend)
-    //     return blog.user.username === user.username
-    // }
-    // )
+        //update: temporary fix on backend side (populate model before sending to frontend)
+        return blog.user.username === user.username
+    }
+    )
 
     return (
         
@@ -130,7 +150,7 @@ const App = () => {
             <div>
                 <h3>Blogs</h3>
                 {notifBox()}
-                <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} createBlog={addBlog} updateBlog={updateBlog}/>
+                <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} createBlog={addBlog} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
             </div>
             }
             
