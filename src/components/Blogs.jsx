@@ -3,7 +3,7 @@ import BlogList from "./BlogList"
 import BlogForm from "./BlogForm"
 import Togglable from "./Togglable"
 
-const Blogs = ({ blogs, name, handleLogout, createBlog }) => {
+const Blogs = ({ blogs, name, handleLogout, createBlog, updateBlog }) => {
 
     const [newBlog, setNewBlog] = useState({
         title: '',
@@ -28,8 +28,6 @@ const Blogs = ({ blogs, name, handleLogout, createBlog }) => {
         }
     }
 
-   
-
     return (
         <div>
             <div className='log-details'>
@@ -39,7 +37,7 @@ const Blogs = ({ blogs, name, handleLogout, createBlog }) => {
             <Togglable buttonLabel='Add New Blog' className='blog-form-container' ref={blogFormRef}>
                 <BlogForm newBlog={newBlog} addBlog={addBlog} handleNewBlogChange={setNewBlog}/>
             </Togglable>
-            <BlogList blogs={blogs}/>
+            <BlogList blogs={blogs} updateBlog={updateBlog}/>
         </div>
     )
 }

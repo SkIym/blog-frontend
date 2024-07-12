@@ -1,6 +1,6 @@
 import Blog from './Blog'
 
-const BlogList = ({ blogs }) => {
+const BlogList = ({ blogs, updateBlog }) => {
 
     return (
         <div>
@@ -8,7 +8,7 @@ const BlogList = ({ blogs }) => {
                 {blogs.length === 0 
                     ? <div>No blogs yet</div> : 
                     blogs.map((blog) => {
-                        return <Blog blog={blog} key={blog.id}/>
+                        return <Blog blog={blog} key={blog.id} updateBlog ={updateBlog}/>
                     })   
                 }
         </div>

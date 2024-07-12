@@ -1,7 +1,18 @@
 import { useState } from 'react'
-const Blog = ({ blog }) => {
+const Blog = ({ blog, updateBlog }) => {
 
     const [showDetails, setShowDetails] = useState(false)
+
+    const handleBlogUpdate = async () => {
+        try {
+            await updateBlog({
+                ...blog,
+                likes: blog.likes + 1
+            })
+        } catch (error) {
+            return
+        }
+    }
     
     return (
         <div className='blog-card'>
@@ -13,7 +24,7 @@ const Blog = ({ blog }) => {
             {showDetails ?
                 <div className='blog-details'>
                     <p>{blog.url}</p>
-                    <p className='like-section'>Likes: {blog.likes} <button className='heart-button'>Heart</button> </p> 
+                    <p className='like-section'>Likes: {blog.likes} <button className='heart-button' onClick={handleBlogUpdate}>Heart</button> </p> 
                     <p>Added by: {blog.user.name}</p>
                 </div>
                 

@@ -8,8 +8,7 @@ import Notification from './components/Notifications'
 import './App.css'
 
 const App = () => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    
     const [user, setUser] = useState(null)
     const [blogs, setBlogs] = useState([])
 
@@ -29,21 +28,15 @@ const App = () => {
         
     }, [])
 
-    const handleLogin = async (e) => {
-        e.preventDefault()
+    const handleLogin = async (loginObject) => {
         try {
             const user = await loginService
-                .login({
-                    username,
-                    password
-                })
+                .login(loginObject)
             window.localStorage.setItem(
                 'loggedInUser', JSON.stringify(user)
             )
             blogService.setToken(user.token)    
             setUser(user)
-            setPassword('')
-            setUsername('')
             const allBlogs = await blogService.getAll()
             setBlogs(allBlogs)
 
@@ -55,6 +48,7 @@ const App = () => {
                 setErrorKind(null)
                 setErrorMessage(null)
             }, 5000)
+            return Promise.reject()
         }
     }
 
@@ -64,15 +58,6 @@ const App = () => {
         setBlogs([])
     }
 
-    const blogsToShow = blogs.filter((blog) => {
-        // the problem is here, the returnedblog (added to the state by line 81) only consists of the user id property, unlike when you get all the blogs from the start which populates that property with the username
-
-        // either change how the backend responds, or change how you check which blogs are whom in the frontend
-
-        //update: temporary fix on backend side (populate model before sending to frontend)
-        return blog.user.username === user.username
-    }
-    )
 
     const addBlog = async (blogObject) => {
         try {
@@ -99,8 +84,35 @@ const App = () => {
         }
     }
 
+    const updateBlog = async (blogObject) => {
+        try {
+            const returnedBlog = await blogService
+                .update(blogObject, blogObject.id)
+            setBlogs(blogs.map(blog => blog.id === returnedBlog.id ? returnedBlog : blog))
+            setErrorKind('success')
+            setErrorMessage(`Blog: ${returnedBlog.title} liked`)
+            setTimeout(() => {
+                setErrorKind(null)
+                setErrorMessage(null)
+            }, 5000)
+        } catch (error) {
+            return Promise.reject
+        }
+    }
+
     const notifBox = () => (
         <Notification flag={error} message={errorMessage}/>
+    )
+
+    const blogsToShow = blogs.filter((blog) => {
+        
+        // the problem is here, the returnedblog (added to the state by line 81) only consists of the user id property, unlike when you get all the blogs from the start which populates that property with the username
+
+        // either change how the backend responds, or change how you check which blogs are whom in the frontend
+
+        //update: temporary fix on backend side (populate model before sending to frontend)
+        return blog.user.username === user.username
+    }
     )
 
     return (
@@ -111,13 +123,13 @@ const App = () => {
             <div>
                 <h3>Log in to application</h3>
                 {notifBox()}
-                <LoginForm username={username} password={password} handleUsernameChange={setUsername} handlePasswordChange={setPassword} handleLogin={handleLogin}/>
+                <LoginForm loginUser={handleLogin}/>
             </div>
             : 
             <div>
                 <h3>Blogs</h3>
                 {notifBox()}
-                <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} createBlog={addBlog}/>
+                <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} createBlog={addBlog} updateBlog={updateBlog}/>
             </div>
             }
             
