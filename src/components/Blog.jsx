@@ -23,9 +23,9 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
             } catch (error) {
                 return
             }
-        } 
+        }
     }
-    
+
     return (
         <div className='blog-card'>
             <div className='blog-always-shown'>
@@ -36,11 +36,11 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
             {showDetails ?
                 <div className='blog-details'>
                     <p>{blog.url}</p>
-                    <p className='like-section'>Likes: {blog.likes} <button className='heart-button' onClick={handleBlogUpdate}>Heart</button> </p> 
+                    <p className='like-section'>Likes: {blog.likes} <button className='heart-button' onClick={handleBlogUpdate}>Heart</button> </p>
                     <p>Added by: {blog.user.name}</p>
                     <button className='remove-button' onClick={handleBlogDelete}>Remove</button>
                 </div>
-                
+
                 : null}
         </div>
     )
@@ -48,7 +48,7 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
 
 Blog.propTypes = {
     blog: PropTypes.object.isRequired,
-    updateBlog: PropTypes.func.isRequired, 
+    updateBlog: PropTypes.func.isRequired,
     deleteBlog: PropTypes.func.isRequired
 }
 

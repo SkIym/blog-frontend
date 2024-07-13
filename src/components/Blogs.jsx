@@ -1,8 +1,8 @@
 import { useRef } from 'react'
 import PropTypes from 'prop-types'
-import BlogList from "./BlogList"
-import BlogForm from "./BlogForm"
-import Togglable from "./Togglable"
+import BlogList from './BlogList'
+import BlogForm from './BlogForm'
+import Togglable from './Togglable'
 
 const Blogs = ({ blogs, name, handleLogout, createBlog, updateBlog, deleteBlog }) => {
 
@@ -34,10 +34,10 @@ const Blogs = ({ blogs, name, handleLogout, createBlog, updateBlog, deleteBlog }
 
 Blogs.propTypes = {
     blogs: PropTypes.array.isRequired,
-    name: PropTypes.string.isRequired, 
-    handleLogout: PropTypes.func.isRequired, 
-    createBlog: PropTypes.func.isRequired, 
-    updateBlog: PropTypes.func.isRequired, 
+    name: PropTypes.string.isRequired,
+    handleLogout: PropTypes.func.isRequired,
+    createBlog: PropTypes.func.isRequired,
+    updateBlog: PropTypes.func.isRequired,
     deleteBlog: PropTypes.func.isRequired
 }
 

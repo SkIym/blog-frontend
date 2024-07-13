@@ -9,7 +9,7 @@ const login = async (creds) => {
     } catch(error) {
         return Promise.reject(error.response.data.error)
     }
-    
+
 }
 
 

@@ -8,7 +8,7 @@ import Notification from './components/Notifications'
 import './App.css'
 
 const App = () => {
-    
+
     const [user, setUser] = useState(null)
     const [blogs, setBlogs] = useState([])
 
@@ -25,7 +25,7 @@ const App = () => {
             setBlogs(allBlogs)
         }
         if (loggedUserJSON) loadData()
-        
+
     }, [])
 
     const handleLogin = async (loginObject) => {
@@ -35,7 +35,7 @@ const App = () => {
             window.localStorage.setItem(
                 'loggedInUser', JSON.stringify(user)
             )
-            blogService.setToken(user.token)    
+            blogService.setToken(user.token)
             setUser(user)
             const allBlogs = await blogService.getAll()
             setBlogs(allBlogs)
@@ -118,7 +118,7 @@ const App = () => {
     )
     let blogsToShow = blogs.sort((b, a) => a.likes - b.likes)
     blogsToShow = blogsToShow.filter((blog) => {
-        
+
         // the problem is here, the returnedblog (added to the state by line 81) only consists of the user id property, unlike when you get all the blogs from the start which populates that property with the username
 
         // either change how the backend responds, or change how you check which blogs are whom in the frontend
@@ -129,25 +129,25 @@ const App = () => {
     )
 
     return (
-        
+
         <div  className='blog-display'>
             {user === null
-            ? 
-            <div>
-                <h3>Log in to application</h3>
-                {notifBox()}
-                <LoginForm loginUser={handleLogin}/>
-            </div>
-            : 
-            <div>
-                <h3>Blogs</h3>
-                {notifBox()}
-                <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} createBlog={addBlog} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
-            </div>
+                ?
+                <div>
+                    <h3>Log in to application</h3>
+                    {notifBox()}
+                    <LoginForm loginUser={handleLogin}/>
+                </div>
+                :
+                <div>
+                    <h3>Blogs</h3>
+                    {notifBox()}
+                    <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} createBlog={addBlog} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
+                </div>
             }
-            
+
         </div>
-        
+
     )
 }
 

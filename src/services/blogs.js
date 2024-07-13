@@ -9,7 +9,7 @@ const setToken = async (newToken) => {
 
 const getAll = async () => {
     const config = {
-        headers: {Authorization: token},
+        headers: { Authorization: token },
     }
 
     const response = await axios.get(baseUrl, config)
@@ -18,7 +18,7 @@ const getAll = async () => {
 
 const create = async (blogObject) => {
     const config = {
-        headers: {Authorization: token},
+        headers: { Authorization: token },
     }
     try {
         const response = await axios.post(baseUrl, blogObject, config)
@@ -26,12 +26,12 @@ const create = async (blogObject) => {
     } catch(error) {
         return Promise.reject(error.response.data.error)
     }
-    
+
 }
 
 const update = async (blogObject, id) => {
     const config = {
-        headers: {Authorization: token},
+        headers: { Authorization: token },
     }
     try {
         const response = await axios.put(`${baseUrl}/${id}`, blogObject, config)
@@ -43,7 +43,7 @@ const update = async (blogObject, id) => {
 
 const remove = async (id) => {
     const config = {
-        headers: {Authorization: token},
+        headers: { Authorization: token },
     }
     try {
         const response = await axios.delete(`${baseUrl}/${id}`, config)
