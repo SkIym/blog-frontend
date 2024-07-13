@@ -1,27 +1,17 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
+import PropTypes from 'prop-types'
 import BlogList from "./BlogList"
 import BlogForm from "./BlogForm"
 import Togglable from "./Togglable"
 
 const Blogs = ({ blogs, name, handleLogout, createBlog, updateBlog, deleteBlog }) => {
 
-    const [newBlog, setNewBlog] = useState({
-        title: '',
-        author: '',
-        url: '',
-    })
 
     const blogFormRef = useRef()
 
-    const addBlog = async (e) => {
-        e.preventDefault()
+    const addBlog = async (blogObject) => {
         try {
-            await createBlog(newBlog)
-            setNewBlog({
-                title: '',
-                author: '',
-                url: '',
-            })
+            await createBlog(blogObject)
             blogFormRef.current.toggleVisibility()
         } catch(exception) {
             return
@@ -35,11 +25,20 @@ const Blogs = ({ blogs, name, handleLogout, createBlog, updateBlog, deleteBlog }
                 <button onClick={handleLogout}>Logout</button>
             </div>
             <Togglable buttonLabel='Add New Blog' className='blog-form-container' ref={blogFormRef}>
-                <BlogForm newBlog={newBlog} addBlog={addBlog} handleNewBlogChange={setNewBlog}/>
+                <BlogForm addBlog={addBlog} />
             </Togglable>
             <BlogList blogs={blogs} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
         </div>
     )
+}
+
+Blogs.propTypes = {
+    blogs: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired, 
+    handleLogout: PropTypes.func.isRequired, 
+    createBlog: PropTypes.func.isRequired, 
+    updateBlog: PropTypes.func.isRequired, 
+    deleteBlog: PropTypes.func.isRequired
 }
 
 export default Blogs

@@ -47,7 +47,7 @@ const App = () => {
             setTimeout(() => {
                 setErrorKind(null)
                 setErrorMessage(null)
-            }, 5000)
+            }, 2000)
             return Promise.reject()
         }
     }
@@ -62,8 +62,6 @@ const App = () => {
     const addBlog = async (blogObject) => {
         try {
             const returnedBlog = await blogService.create(blogObject)
-            console.log(returnedBlog)
-            
             setBlogs([...blogs, returnedBlog])
             setErrorKind('success')
             setErrorMessage(`A new blog: ${returnedBlog.title} by ${returnedBlog.author} was added`)
@@ -71,7 +69,7 @@ const App = () => {
             setTimeout(() => {
                 setErrorKind(null)
                 setErrorMessage(null)
-            }, 5000)
+            }, 2000)
         } catch(error) {
             setErrorKind('error')
             setErrorMessage(error)
@@ -79,7 +77,7 @@ const App = () => {
             setTimeout(() => {
                 setErrorKind(null)
                 setErrorMessage(null)
-            }, 5000)
+            }, 2000)
             return Promise.reject()
         }
     }
@@ -89,12 +87,6 @@ const App = () => {
             const returnedBlog = await blogService
                 .update(blogObject, blogObject.id)
             setBlogs(blogs.map(blog => blog.id === returnedBlog.id ? returnedBlog : blog))
-            setErrorKind('success')
-            setErrorMessage(`Blog: ${returnedBlog.title} liked`)
-            setTimeout(() => {
-                setErrorKind(null)
-                setErrorMessage(null)
-            }, 5000)
         } catch (error) {
             return Promise.reject()
         }
