@@ -117,16 +117,16 @@ const App = () => {
         <Notification flag={error} message={errorMessage}/>
     )
     let blogsToShow = blogs.sort((b, a) => a.likes - b.likes)
-    blogsToShow = blogsToShow.filter((blog) => {
+    // blogsToShow = blogsToShow.filter((blog) => {
 
-        // the problem is here, the returnedblog (added to the state by line 81) only consists of the user id property, unlike when you get all the blogs from the start which populates that property with the username
+    //     // the problem is here, the returnedblog (added to the state by line 81) only consists of the user id property, unlike when you get all the blogs from the start which populates that property with the username
 
-        // either change how the backend responds, or change how you check which blogs are whom in the frontend
+    //     // either change how the backend responds, or change how you check which blogs are whom in the frontend
 
-        //update: temporary fix on backend side (populate model before sending to frontend)
-        return blog.user.username === user.username
-    }
-    )
+    //     //update: temporary fix on backend side (populate model before sending to frontend)
+    //     return blog.user.username === user.username
+    // }
+    // )
 
     return (
 
@@ -142,7 +142,7 @@ const App = () => {
                 <div>
                     <h3>Blogs</h3>
                     {notifBox()}
-                    <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} createBlog={addBlog} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
+                    <Blogs blogs={blogsToShow} name={user.name} handleLogout={handleLogout} createBlog={addBlog} updateBlog={updateBlog} deleteBlog={deleteBlog} user={user.username}/>
                 </div>
             }
 

@@ -1,7 +1,7 @@
 import Blog from './Blog'
 import PropTypes from 'prop-types'
 
-const BlogList = ({ blogs, updateBlog, deleteBlog }) => {
+const BlogList = ({ blogs, updateBlog, deleteBlog, user }) => {
 
     return (
         <div>
@@ -9,7 +9,11 @@ const BlogList = ({ blogs, updateBlog, deleteBlog }) => {
             {blogs.length === 0
                 ? <div>No blogs yet</div> :
                 blogs.map((blog) => {
-                    return <Blog blog={blog} key={blog.id} updateBlog ={updateBlog} deleteBlog={deleteBlog}/>
+                    let showRemoveBtn = false
+                    if (blog.user.username === user) {
+                        showRemoveBtn = true
+                    }
+                    return <Blog blog={blog} key={blog.id} updateBlog ={updateBlog} deleteBlog={deleteBlog} showRemoveBtn={showRemoveBtn}/>
                 })
             }
         </div>

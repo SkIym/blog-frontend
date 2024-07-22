@@ -4,7 +4,7 @@ import BlogList from './BlogList'
 import BlogForm from './BlogForm'
 import Togglable from './Togglable'
 
-const Blogs = ({ blogs, name, handleLogout, createBlog, updateBlog, deleteBlog }) => {
+const Blogs = ({ blogs, name, handleLogout, createBlog, updateBlog, deleteBlog, user }) => {
 
 
     const blogFormRef = useRef()
@@ -27,7 +27,7 @@ const Blogs = ({ blogs, name, handleLogout, createBlog, updateBlog, deleteBlog }
             <Togglable buttonLabel='Add New Blog' className='blog-form-container' ref={blogFormRef}>
                 <BlogForm addBlog={addBlog} />
             </Togglable>
-            <BlogList blogs={blogs} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
+            <BlogList blogs={blogs} updateBlog={updateBlog} deleteBlog={deleteBlog} user={user}/>
         </div>
     )
 }
