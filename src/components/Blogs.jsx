@@ -38,7 +38,8 @@ Blogs.propTypes = {
     handleLogout: PropTypes.func.isRequired,
     createBlog: PropTypes.func.isRequired,
     updateBlog: PropTypes.func.isRequired,
-    deleteBlog: PropTypes.func.isRequired
+    deleteBlog: PropTypes.func.isRequired,
+    user: PropTypes.string.isRequired
 }
 
 export default Blogs

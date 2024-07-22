@@ -50,7 +50,8 @@ const Blog = ({ blog, updateBlog, deleteBlog, showRemoveBtn }) => {
 Blog.propTypes = {
     blog: PropTypes.object.isRequired,
     updateBlog: PropTypes.func.isRequired,
-    deleteBlog: PropTypes.func.isRequired
+    deleteBlog: PropTypes.func.isRequired,
+    showRemoveBtn: PropTypes.bool.isRequired
 }
 
 export default Blog

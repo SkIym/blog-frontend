@@ -23,7 +23,8 @@ const BlogList = ({ blogs, updateBlog, deleteBlog, user }) => {
 BlogList.propTypes = {
     blogs: PropTypes.array.isRequired,
     updateBlog: PropTypes.func.isRequired,
-    deleteBlog: PropTypes.func.isRequired
+    deleteBlog: PropTypes.func.isRequired,
+    user: PropTypes.string.isRequired
 }
 
 export default BlogList
