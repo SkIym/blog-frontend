@@ -6,13 +6,14 @@ import blogService from "./services/blogs";
 import Notification from "./components/Notifications";
 
 import "./App.css";
+import { useDispatch } from "react-redux";
+import { showNotification } from "./reducers/notificationReducer";
 
 const App = () => {
   const [user, setUser] = useState(null);
   const [blogs, setBlogs] = useState([]);
 
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [error, setErrorKind] = useState(null);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedInUser");
@@ -36,13 +37,7 @@ const App = () => {
       setBlogs(allBlogs);
     } catch (error) {
       // no error message component yet
-      setErrorKind("error");
-      setErrorMessage(error);
-
-      setTimeout(() => {
-        setErrorKind(null);
-        setErrorMessage(null);
-      }, 2000);
+      dispatch(showNotification('error', error, 4))
       return Promise.reject();
     }
   };
@@ -57,23 +52,9 @@ const App = () => {
     try {
       const returnedBlog = await blogService.create(blogObject);
       setBlogs([...blogs, returnedBlog]);
-      setErrorKind("success");
-      setErrorMessage(
-        `A new blog: ${returnedBlog.title} by ${returnedBlog.author} was added`,
-      );
-
-      setTimeout(() => {
-        setErrorKind(null);
-        setErrorMessage(null);
-      }, 2000);
+      dispatch(showNotification('success', `A new blog: ${returnedBlog.title} by ${returnedBlog.author} was added`, 2))
     } catch (error) {
-      setErrorKind("error");
-      setErrorMessage(error);
-
-      setTimeout(() => {
-        setErrorKind(null);
-        setErrorMessage(null);
-      }, 2000);
+      dispatch(showNotification('error', error, 2))
       return Promise.reject();
     }
   };
@@ -95,23 +76,13 @@ const App = () => {
     try {
       await blogService.remove(id);
       setBlogs(blogs.filter((blog) => blog.id !== id));
-      setTimeout(() => {
-        setErrorKind(null);
-        setErrorMessage(null);
-      }, 5000);
     } catch (error) {
-      setErrorKind("error");
-      setErrorMessage(error);
-
-      setTimeout(() => {
-        setErrorKind(null);
-        setErrorMessage(null);
-      }, 5000);
+      dispatch(showNotification('error', error, 2))
       return Promise.reject();
     }
   };
 
-  const notifBox = () => <Notification flag={error} message={errorMessage} />;
+  const notifBox = () => <Notification/>;
   let blogsToShow = blogs.sort((b, a) => a.likes - b.likes);
   // blogsToShow = blogsToShow.filter((blog) => {
 
