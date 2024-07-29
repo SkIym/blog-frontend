@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, current } from "@reduxjs/toolkit"
 
 const notificationSlice = createSlice({
   name: 'notification',
@@ -12,7 +12,10 @@ const notificationSlice = createSlice({
       state.message = action.payload.message
     },
     clearNotification(state, action) {
-      return ''
+      return {
+        flag: '',
+        message: ''
+      }
     }
   }
 })
