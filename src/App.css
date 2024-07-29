@@ -1,156 +1,159 @@
-@import url('https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300;400;500;600;700&display=swap");
 
-*, ::after, ::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* border: 1px solid black; */
-    font-family: "Hind Madurai", sans-serif;
-    font-weight: 500;
-    font-style: normal;
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* border: 1px solid black; */
+  font-family: "Hind Madurai", sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
-h2, h1, h3, h4 {
-    font-weight: 700;
+h2,
+h1,
+h3,
+h4 {
+  font-weight: 700;
 }
 
 button {
-    padding: 10px 20px;
+  padding: 10px 20px;
 }
 
 #root {
-    display: flex;
-    width: 80%;
-    justify-content: center;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
 .error {
-    border: 1px solid;
-    padding: 10px;
-    border-radius: 5px;
-    color: red;
-    margin: 10px 0;
+  border: 1px solid;
+  padding: 10px;
+  border-radius: 5px;
+  color: red;
+  margin: 10px 0;
 }
 
 .success {
-    border: 1px solid green;
-    border-radius: 5px;
-    padding: 10px;
-    border-radius: 5px;
-    color: green;
-    margin: 10px 0;
+  border: 1px solid green;
+  border-radius: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  color: green;
+  margin: 10px 0;
 }
 
 .blog-display {
-    width: 100%;
+  width: 100%;
 }
 
 .log-details {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
 }
 
 .log-details > p {
-    padding: 10px;
+  padding: 10px;
 }
 
 .blog-form-container {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid black;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 10px;
 }
 
 .blog-form-container > * {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .blog-show-when-visible {
-    display: flex;
-    flex-direction: column;
-    
+  display: flex;
+  flex-direction: column;
 }
 
 .blog-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid black;
 }
 
 .blog-form > button {
-    align-self: center;
+  align-self: center;
 }
 
 .blog-form > div {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
 }
 
 .blog-form > div > input {
-    padding: 5px;
-    width: 100%;
+  padding: 5px;
+  width: 100%;
 }
 
 .blog-form > div > span {
-    padding: 5px;
+  padding: 5px;
 }
 
 .blog-card {
-    display: flex;
-    flex-direction: column;
-    margin: 10px 0;
-    border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  border: 1px solid black;
 }
 
 .blog-always-shown {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    padding-left: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-left: 10px;
 }
 
 .blog-details {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 10px;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+  padding: 10px;
 }
 
 .like-section {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .heart-button {
-    padding: 5px 10px;
-    border-color: blueviolet;
+  padding: 5px 10px;
+  border-color: blueviolet;
 }
 
 .remove-button {
-    padding: 5px 10px;
-    border-color: red;
-    transition: all 0.2s;
+  padding: 5px 10px;
+  border-color: red;
+  transition: all 0.2s;
 }
 
 .remove-button:hover {
-    background-color: red;
-    color: white;
-    border-color: red;
+  background-color: red;
+  color: white;
+  border-color: red;
 }
-
