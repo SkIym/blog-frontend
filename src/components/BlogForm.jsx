@@ -1,22 +1,19 @@
+import { useField } from '../hooks'
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { createBlog } from '../reducers/blogReducer';
 
-const BlogForm = ({ addBlog }) => {
-  const [newBlog, setNewBlog] = useState({
-    title: "",
-    author: "",
-    url: "",
-  });
+const BlogForm = ({ toggleForm }) => {
+  const { reset: titleReset, ...title } = useField('text')
+  const { reset: authorReset, ...author } = useField('text')
+  const { reset: linkReset, ...link } = useField('text')
 
-  const uploadBlog = async (e) => {
+  const dispatch = useDispatch()
+  const addBlog = async (e) => {
     e.preventDefault();
     try {
-      await addBlog(newBlog);
-      setNewBlog({
-        title: "",
-        author: "",
-        url: "",
-      });
+      dispatch(createBlog(title.value, author.value, link.value))
+      toggleForm()
     } catch (error) {
       return;
     }
@@ -25,14 +22,11 @@ const BlogForm = ({ addBlog }) => {
   return (
     <div>
       <h4>Create new blog</h4>
-      <form onSubmit={uploadBlog} className="blog-form">
+      <form onSubmit={addBlog} className="blog-form">
         <div>
           <span>Title:</span>
           <input
-            type="text"
-            name="text"
-            value={newBlog.title}
-            onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })}
+            {...title}
             placeholder="Title"
             data-testid="title"
           />
@@ -40,10 +34,7 @@ const BlogForm = ({ addBlog }) => {
         <div>
           <span>Author:</span>
           <input
-            type="text"
-            name="author"
-            value={newBlog.author}
-            onChange={(e) => setNewBlog({ ...newBlog, author: e.target.value })}
+            {...author}
             placeholder="Author"
             data-testid="author"
           />
@@ -51,10 +42,7 @@ const BlogForm = ({ addBlog }) => {
         <div>
           <span>Link:</span>
           <input
-            type="text"
-            name="url"
-            value={newBlog.url}
-            onChange={(e) => setNewBlog({ ...newBlog, url: e.target.value })}
+            {...link}
             placeholder="URL"
             data-testid="link"
           />
@@ -66,7 +54,6 @@ const BlogForm = ({ addBlog }) => {
 };
 
 BlogForm.propTypes = {
-  addBlog: PropTypes.func.isRequired,
-};
-
+  toggleForm: PropTypes.func.isRequired
+}
 export default BlogForm;

@@ -8,6 +8,7 @@ import Notification from "./components/Notifications";
 import "./App.css";
 import { useDispatch } from "react-redux";
 import { showNotification } from "./reducers/notificationReducer";
+import { initializeBlogs } from "./reducers/blogReducer";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -26,6 +27,10 @@ const App = () => {
     };
     if (loggedUserJSON) loadData();
   }, []);
+
+  useEffect(() => {
+    dispatch(initializeBlogs())
+  }, [])
 
   const handleLogin = async (loginObject) => {
     try {
@@ -48,16 +53,16 @@ const App = () => {
     setBlogs([]);
   };
 
-  const addBlog = async (blogObject) => {
-    try {
-      const returnedBlog = await blogService.create(blogObject);
-      setBlogs([...blogs, returnedBlog]);
-      dispatch(showNotification('success', `A new blog: ${returnedBlog.title} by ${returnedBlog.author} was added`, 2))
-    } catch (error) {
-      dispatch(showNotification('error', error, 2))
-      return Promise.reject();
-    }
-  };
+  // const addBlog = async (blogObject) => {
+  //   try {
+  //     const returnedBlog = await blogService.create(blogObject);
+  //     setBlogs([...blogs, returnedBlog]);
+  //     dispatch(showNotification('success', `A new blog: ${returnedBlog.title} by ${returnedBlog.author} was added`, 2))
+  //   } catch (error) {
+  //     dispatch(showNotification('error', error, 2))
+  //     return Promise.reject();
+  //   }
+  // };
 
   const updateBlog = async (blogObject) => {
     try {
@@ -83,17 +88,6 @@ const App = () => {
   };
 
   const notifBox = () => <Notification/>;
-  let blogsToShow = blogs.sort((b, a) => a.likes - b.likes);
-  // blogsToShow = blogsToShow.filter((blog) => {
-
-  //     // the problem is here, the returnedblog (added to the state by line 81) only consists of the user id property, unlike when you get all the blogs from the start which populates that property with the username
-
-  //     // either change how the backend responds, or change how you check which blogs are whom in the frontend
-
-  //     //update: temporary fix on backend side (populate model before sending to frontend)
-  //     return blog.user.username === user.username
-  // }
-  // )
 
   return (
     <div className="blog-display">
@@ -108,10 +102,8 @@ const App = () => {
           <h3>Blogs</h3>
           {notifBox()}
           <Blogs
-            blogs={blogsToShow}
             name={user.name}
             handleLogout={handleLogout}
-            createBlog={addBlog}
             updateBlog={updateBlog}
             deleteBlog={deleteBlog}
             user={user.username}

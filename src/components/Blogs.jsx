@@ -5,24 +5,17 @@ import BlogForm from "./BlogForm";
 import Togglable from "./Togglable";
 
 const Blogs = ({
-  blogs,
   name,
   handleLogout,
-  createBlog,
   updateBlog,
   deleteBlog,
   user,
 }) => {
   const blogFormRef = useRef();
 
-  const addBlog = async (blogObject) => {
-    try {
-      await createBlog(blogObject);
-      blogFormRef.current.toggleVisibility();
-    } catch (exception) {
-      return;
-    }
-  };
+  const toggleForm = () => {
+    blogFormRef.current.toggleVisibility()
+  }
 
   return (
     <div>
@@ -35,10 +28,9 @@ const Blogs = ({
         className="blog-form-container"
         ref={blogFormRef}
       >
-        <BlogForm addBlog={addBlog} />
+        <BlogForm toggleForm={toggleForm}/>
       </Togglable>
       <BlogList
-        blogs={blogs}
         updateBlog={updateBlog}
         deleteBlog={deleteBlog}
         user={user}
@@ -48,10 +40,8 @@ const Blogs = ({
 };
 
 Blogs.propTypes = {
-  blogs: PropTypes.array.isRequired,
   name: PropTypes.string.isRequired,
   handleLogout: PropTypes.func.isRequired,
-  createBlog: PropTypes.func.isRequired,
   updateBlog: PropTypes.func.isRequired,
   deleteBlog: PropTypes.func.isRequired,
   user: PropTypes.string.isRequired,
