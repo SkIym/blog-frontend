@@ -3,18 +3,23 @@ import PropTypes from "prop-types";
 import BlogList from "./BlogList";
 import BlogForm from "./BlogForm";
 import Togglable from "./Togglable";
+import { logoutUser } from "../reducers/userReducer";
+import { useDispatch, useSelector } from "react-redux";
 
 const Blogs = ({
-  name,
-  handleLogout,
   updateBlog,
   deleteBlog,
-  user,
 }) => {
+  const dispatch = useDispatch();
+  const name = useSelector(state => state.user.name)
   const blogFormRef = useRef();
 
   const toggleForm = () => {
     blogFormRef.current.toggleVisibility()
+  }
+
+  const handleLogout = () => {
+    dispatch(logoutUser())
   }
 
   return (
@@ -33,18 +38,14 @@ const Blogs = ({
       <BlogList
         updateBlog={updateBlog}
         deleteBlog={deleteBlog}
-        user={user}
       />
     </div>
   );
 };
 
 Blogs.propTypes = {
-  name: PropTypes.string.isRequired,
-  handleLogout: PropTypes.func.isRequired,
   updateBlog: PropTypes.func.isRequired,
   deleteBlog: PropTypes.func.isRequired,
-  user: PropTypes.string.isRequired,
 };
 
 export default Blogs;

@@ -2,8 +2,9 @@ import { useSelector } from "react-redux";
 import Blog from "./Blog";
 import PropTypes from "prop-types";
 
-const BlogList = ({ updateBlog, deleteBlog, user }) => {
+const BlogList = ({ updateBlog, deleteBlog }) => {
   const blogs = useSelector(state => state.blogs)
+  const user = useSelector(state => state.user.username)
   return (
     <div>
       {blogs.length === 0 ? (
@@ -32,7 +33,6 @@ const BlogList = ({ updateBlog, deleteBlog, user }) => {
 BlogList.propTypes = {
   updateBlog: PropTypes.func.isRequired,
   deleteBlog: PropTypes.func.isRequired,
-  user: PropTypes.string.isRequired,
 };
 
 export default BlogList;

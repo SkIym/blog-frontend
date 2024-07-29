@@ -1,22 +1,15 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useField } from "../hooks";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../reducers/userReducer";
 
-const LoginForm = ({ loginUser }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+const LoginForm = () => {
+  const { reset: usernameReset, ...username } = useField('text')
+  const { reset: passwordReset, ...password } = useField('password')
+  const dispatch = useDispatch()
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      await loginUser({
-        username,
-        password,
-      });
-      setPassword("");
-      setUsername("");
-    } catch (error) {
-      return;
-    }
+    dispatch(loginUser(username.value, password.value))
   };
 
   return (
@@ -25,20 +18,14 @@ const LoginForm = ({ loginUser }) => {
         <div>
           <span>username</span>
           <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            {...username}
             data-testid="username"
           />
         </div>
         <div>
           <span>password</span>
           <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...password}
             data-testid="password"
           />
         </div>
@@ -48,8 +35,5 @@ const LoginForm = ({ loginUser }) => {
   );
 };
 
-LoginForm.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-};
 
 export default LoginForm;
