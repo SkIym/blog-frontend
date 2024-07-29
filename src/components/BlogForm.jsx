@@ -2,6 +2,7 @@ import { useField } from '../hooks'
 import PropTypes from "prop-types";
 import { useDispatch } from 'react-redux';
 import { createBlog } from '../reducers/blogReducer';
+import { showNotification } from '../reducers/notificationReducer';
 
 const BlogForm = ({ toggleForm }) => {
   const { reset: titleReset, ...title } = useField('text')
@@ -11,12 +12,19 @@ const BlogForm = ({ toggleForm }) => {
   const dispatch = useDispatch()
   const addBlog = async (e) => {
     e.preventDefault();
-    try {
+    if (!title.value || !author.value || !link.value) {
+      dispatch(showNotification('error', 'lmao', 3))
+    } else {
       dispatch(createBlog(title.value, author.value, link.value))
       toggleForm()
-    } catch (error) {
-      return;
     }
+    
+    // try {
+    //   dispatch(createBlog(title.value, author.value, link.value))
+    //   toggleForm()
+    // } catch (error) {
+    //   return;
+    // }
   };
 
   return (

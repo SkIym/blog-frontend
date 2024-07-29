@@ -32,7 +32,7 @@ export const createBlog = (title, author, url) => {
       dispatch(appendBlog(newBlog))
       dispatch(showNotification('success', `A new blog: ${title} by ${author} was added`, 2))
     } catch(err) {
-      dispatch(showNotification('error', err, 3))
+      return
     }
 
   }
