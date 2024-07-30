@@ -2,11 +2,10 @@ import { useRef } from "react";
 import BlogList from "./BlogList";
 import BlogForm from "./BlogForm";
 import Togglable from "./Togglable";
-import { logoutUser } from "../reducers/userReducer";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+
 
 const Blogs = () => {
-  const dispatch = useDispatch();
   const name = useSelector((state) => state.user.name);
   const blogFormRef = useRef();
 
@@ -14,16 +13,9 @@ const Blogs = () => {
     blogFormRef.current.toggleVisibility();
   };
 
-  const handleLogout = () => {
-    dispatch(logoutUser());
-  };
-
   return (
     <div>
-      <div className="log-details">
-        <p>{name} logged in</p>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
+      <h2>Blogs</h2>
       <Togglable
         buttonLabel="Add New Blog"
         className="blog-form-container"

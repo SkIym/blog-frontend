@@ -21,7 +21,6 @@ export const { setUser, clearUser } = userSlice.actions;
 export const getLoggedInUser = () => {
   return async (dispatch) => {
     const loggedInUserJSON = window.localStorage.getItem("loggedInUser");
-    console.log(loggedInUserJSON);
     if (loggedInUserJSON) {
       const user = JSON.parse(loggedInUserJSON);
       dispatch(setUser(user));

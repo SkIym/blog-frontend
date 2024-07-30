@@ -157,3 +157,10 @@ button {
   color: white;
   border-color: red;
 }
+
+.user-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 10px 0;
+  border: 1px solid black;
+}
