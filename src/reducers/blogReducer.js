@@ -1,43 +1,71 @@
 import { createSlice } from "@reduxjs/toolkit";
-import blogService from '../services/blogs'
+import blogService from "../services/blogs";
 import { showNotification } from "./notificationReducer";
 
 const blogSlice = createSlice({
-  name: 'blogs',
+  name: "blogs",
   initialState: [],
   reducers: {
     setBlogs(state, action) {
-      return action.payload.sort((b, a) => a.likes - b.likes)
+      return action.payload;
     },
     appendBlog(state, action) {
-      state.push(action.payload)
-      return state.sort((b, a) => a.likes - b.likes)
-    }
-  }
-})
+      state.push(action.payload);
+      return state;
+    },
+    removeBlog(state, action) {
+      const id = action.payload;
+      return state.filter((blog) => blog.id !== id);
+    },
+    likeBlog(state, action) {
+      const id = action.payload.id;
+      return state.map((blog) => (blog.id === id ? action.payload : blog));
+    },
+  },
+});
 
-export const { setBlogs, appendBlog } = blogSlice.actions
+export const { setBlogs, appendBlog, removeBlog, likeBlog } = blogSlice.actions;
 
 export const initializeBlogs = () => {
-  return async dispatch => {
-    const blogs = await blogService.getAll()
-    dispatch(setBlogs(blogs))
-  }
-}
+  return async (dispatch) => {
+    const blogs = await blogService.getAll();
+    dispatch(setBlogs(blogs));
+  };
+};
 
 export const createBlog = (title, author, url) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const newBlog = await blogService.create({ title, author, url })
-      dispatch(appendBlog(newBlog))
-      dispatch(showNotification('success', `A new blog: ${title} by ${author} was added`, 2))
-    } catch(err) {
-      return
+      const newBlog = await blogService.create({ title, author, url });
+      dispatch(appendBlog(newBlog));
+      dispatch(
+        showNotification(
+          "success",
+          `A new blog: ${title} by ${author} was added`,
+          2,
+        ),
+      );
+    } catch (err) {
+      return;
     }
+  };
+};
 
-  }
-}
+export const deleteBlog = (id) => {
+  return async (dispatch) => {
+    await blogService.remove(id);
+    dispatch(removeBlog(id));
+  };
+};
 
+export const updateBlog = (blog) => {
+  return async (dispatch) => {
+    const returnedBlog = await blogService.update(
+      { ...blog, likes: blog.likes + 1 },
+      blog.id,
+    );
+    dispatch(likeBlog(returnedBlog));
+  };
+};
 
-
-export default blogSlice.reducer
+export default blogSlice.reducer;

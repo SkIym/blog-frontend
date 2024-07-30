@@ -1,29 +1,21 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { deleteBlog, updateBlog } from "../reducers/blogReducer";
 
-const Blog = ({ blog, updateBlog, deleteBlog, showRemoveBtn }) => {
+const Blog = ({ blog, showRemoveBtn }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const dispatch = useDispatch();
 
   const handleBlogUpdate = async () => {
-    try {
-      await updateBlog({
-        ...blog,
-        likes: blog.likes + 1,
-      });
-    } catch (error) {
-      return;
-    }
+    dispatch(updateBlog(blog));
   };
 
   const handleBlogDelete = async () => {
     if (
       window.confirm(`Do you want to remove ${blog.title} by ${blog.author}?`)
     ) {
-      try {
-        await deleteBlog(blog.id);
-      } catch (error) {
-        return;
-      }
+      dispatch(deleteBlog(blog.id));
     }
   };
 
@@ -59,8 +51,6 @@ const Blog = ({ blog, updateBlog, deleteBlog, showRemoveBtn }) => {
 
 Blog.propTypes = {
   blog: PropTypes.object.isRequired,
-  updateBlog: PropTypes.func.isRequired,
-  deleteBlog: PropTypes.func.isRequired,
   showRemoveBtn: PropTypes.bool.isRequired,
 };
 

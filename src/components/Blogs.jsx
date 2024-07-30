@@ -1,26 +1,22 @@
 import { useRef } from "react";
-import PropTypes from "prop-types";
 import BlogList from "./BlogList";
 import BlogForm from "./BlogForm";
 import Togglable from "./Togglable";
 import { logoutUser } from "../reducers/userReducer";
 import { useDispatch, useSelector } from "react-redux";
 
-const Blogs = ({
-  updateBlog,
-  deleteBlog,
-}) => {
+const Blogs = () => {
   const dispatch = useDispatch();
-  const name = useSelector(state => state.user.name)
+  const name = useSelector((state) => state.user.name);
   const blogFormRef = useRef();
 
   const toggleForm = () => {
-    blogFormRef.current.toggleVisibility()
-  }
+    blogFormRef.current.toggleVisibility();
+  };
 
   const handleLogout = () => {
-    dispatch(logoutUser())
-  }
+    dispatch(logoutUser());
+  };
 
   return (
     <div>
@@ -33,19 +29,11 @@ const Blogs = ({
         className="blog-form-container"
         ref={blogFormRef}
       >
-        <BlogForm toggleForm={toggleForm}/>
+        <BlogForm toggleForm={toggleForm} />
       </Togglable>
-      <BlogList
-        updateBlog={updateBlog}
-        deleteBlog={deleteBlog}
-      />
+      <BlogList />
     </div>
   );
-};
-
-Blogs.propTypes = {
-  updateBlog: PropTypes.func.isRequired,
-  deleteBlog: PropTypes.func.isRequired,
 };
 
 export default Blogs;

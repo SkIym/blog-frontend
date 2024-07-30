@@ -1,53 +1,53 @@
 import { createSlice } from "@reduxjs/toolkit";
-import blogService from '../services/blogs'
-import loginService from '../services/login'
+import blogService from "../services/blogs";
+import loginService from "../services/login";
 import { showNotification } from "./notificationReducer";
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState: null,
   reducers: {
     setUser(state, action) {
-      return action.payload
+      return action.payload;
     },
     clearUser(state, action) {
-      return null
-    }
-  }
-})
+      return null;
+    },
+  },
+});
 
-export const { setUser, clearUser } = userSlice.actions
+export const { setUser, clearUser } = userSlice.actions;
 
 export const getLoggedInUser = () => {
-  return async dispatch => {
-    const loggedInUserJSON = window.localStorage.getItem('loggedInUser')
-    console.log(loggedInUserJSON)
+  return async (dispatch) => {
+    const loggedInUserJSON = window.localStorage.getItem("loggedInUser");
+    console.log(loggedInUserJSON);
     if (loggedInUserJSON) {
-      const user = JSON.parse(loggedInUserJSON)
-      dispatch(setUser(user))
-      blogService.setToken(user.token)
+      const user = JSON.parse(loggedInUserJSON);
+      dispatch(setUser(user));
+      blogService.setToken(user.token);
     }
-  }
-}
+  };
+};
 
 export const loginUser = (username, password) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const user = await loginService.login({ username, password })
+      const user = await loginService.login({ username, password });
       window.localStorage.setItem("loggedInUser", JSON.stringify(user));
-      blogService.setToken(user.token)
-      dispatch(setUser(user))
-    } catch(err) {
-      dispatch(showNotification('error', err, 4))
+      blogService.setToken(user.token);
+      dispatch(setUser(user));
+    } catch (err) {
+      dispatch(showNotification("error", err, 4));
     }
-  }
-}
+  };
+};
 
 export const logoutUser = () => {
-  return async dispatch => {
-    window.localStorage.removeItem('loggedInUser')
-    dispatch(clearUser())
-  }
-}
+  return async (dispatch) => {
+    window.localStorage.removeItem("loggedInUser");
+    dispatch(clearUser());
+  };
+};
 
-export default userSlice.reducer
+export default userSlice.reducer;

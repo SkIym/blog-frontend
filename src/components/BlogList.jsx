@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import Blog from "./Blog";
-import PropTypes from "prop-types";
+import { selectSortedBlogs } from "../hooks";
 
-const BlogList = ({ updateBlog, deleteBlog }) => {
-  const blogs = useSelector(state => state.blogs)
-  const user = useSelector(state => state.user.username)
+const BlogList = () => {
+  const blogs = useSelector(selectSortedBlogs); // memo via createSelector
+  const user = useSelector((state) => state.user.username);
   return (
     <div>
       {blogs.length === 0 ? (
@@ -16,23 +16,12 @@ const BlogList = ({ updateBlog, deleteBlog }) => {
             showRemoveBtn = true;
           }
           return (
-            <Blog
-              blog={blog}
-              key={blog.id}
-              updateBlog={updateBlog}
-              deleteBlog={deleteBlog}
-              showRemoveBtn={showRemoveBtn}
-            />
+            <Blog blog={blog} key={blog.id} showRemoveBtn={showRemoveBtn} />
           );
         })
       )}
     </div>
   );
-};
-
-BlogList.propTypes = {
-  updateBlog: PropTypes.func.isRequired,
-  deleteBlog: PropTypes.func.isRequired,
 };
 
 export default BlogList;
