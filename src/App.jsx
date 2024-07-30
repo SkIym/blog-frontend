@@ -12,7 +12,7 @@ import {
 } from "react-router-dom"
 import { initializeUsers } from "./reducers/usersReducer";
 import Users from "./components/Users";
-import User from "./components/User";
+
 
 const App = () => {
   const user = useSelector((state) => state.user);
@@ -27,7 +27,7 @@ const App = () => {
       dispatch(initializeBlogs())
       dispatch(initializeUsers())
     }
-  }, [user, dispatch])
+  }, [user])
 
   const handleLogout = () => {
     dispatch(logoutUser())
@@ -50,7 +50,7 @@ const App = () => {
           </div>
           <Routes>
             <Route path="/users/*" element={<Users/>}></Route>
-            <Route path="/" element={<Blogs/>}></Route>
+            <Route path="/*" element={<Blogs/>}></Route>
           </Routes>
         </div>
 

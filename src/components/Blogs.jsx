@@ -1,29 +1,55 @@
 import { useRef } from "react";
-import BlogList from "./BlogList";
 import BlogForm from "./BlogForm";
 import Togglable from "./Togglable";
 import { useSelector } from "react-redux";
+import {
+  Routes, Route, Link,
+  useMatch
+} from 'react-router-dom'
+import Blog from "./Blog";
+import { selectSortedBlogs } from "../hooks";
 
 
 const Blogs = () => {
-  const name = useSelector((state) => state.user.name);
+  const blogs = useSelector(selectSortedBlogs); // memo via createSelector (sorter)
   const blogFormRef = useRef();
 
   const toggleForm = () => {
     blogFormRef.current.toggleVisibility();
   };
 
+  const match = useMatch('/blogs/:id')
+  const blog = match ? blogs.find(b => b.id === match.params.id) : null
+
   return (
     <div>
       <h2>Blogs</h2>
-      <Togglable
-        buttonLabel="Add New Blog"
-        className="blog-form-container"
-        ref={blogFormRef}
-      >
-        <BlogForm toggleForm={toggleForm} />
-      </Togglable>
-      <BlogList />
+      <Routes>
+        <Route path="/" element={
+          <div>
+            <Togglable
+              buttonLabel="Add New Blog"
+              className="blog-form-container"
+              ref={blogFormRef}
+            ><BlogForm toggleForm={toggleForm} />
+            </Togglable>
+            <div>
+              {blogs.length === 0 ? (
+                <div>No blogs yet</div>
+              ) : (
+                blogs.map((blog) => {
+                  return (
+                    <div key={blog.id} className="blog-card">
+                      <Link to={`/blogs/${blog.id}`}><p>{blog.title}</p></Link>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </div>
+        }></Route>
+        <Route path="/blogs/:id" element={<Blog blog={blog}/>}></Route>
+      </Routes>
     </div>
   );
 };

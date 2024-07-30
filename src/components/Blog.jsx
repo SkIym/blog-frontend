@@ -1,10 +1,9 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteBlog, updateBlog } from "../reducers/blogReducer";
 
-const Blog = ({ blog, showRemoveBtn }) => {
-  const [showDetails, setShowDetails] = useState(false);
+const Blog = ({ blog }) => {
+
+  const user = useSelector(state => state.user)
   const dispatch = useDispatch();
 
   const handleBlogUpdate = async () => {
@@ -19,39 +18,33 @@ const Blog = ({ blog, showRemoveBtn }) => {
     }
   };
 
+  if (!blog) {
+    return null
+  }
+
   return (
     <div className="blog-card">
       <div className="blog-always-shown">
         <p>{blog.title}</p>
         <p>By {blog.author}</p>
-        <button onClick={() => setShowDetails(!showDetails)}>
-          {showDetails ? "Hide" : "View"}
-        </button>
       </div>
-      {showDetails ? (
-        <div className="blog-details">
-          <p>{blog.url}</p>
-          <p className="like-section">
-            Likes: {blog.likes}{" "}
-            <button className="heart-button" onClick={handleBlogUpdate}>
-              Heart
-            </button>{" "}
-          </p>
-          <p>Added by: {blog.user.name}</p>
-          {showRemoveBtn ? (
-            <button className="remove-button" onClick={handleBlogDelete}>
-              Remove
-            </button>
-          ) : null}
-        </div>
-      ) : null}
+      <div className="blog-details">
+        <p>{blog.url}</p>
+        <p className="like-section">
+          Likes: {blog.likes}{" "}
+          <button className="heart-button" onClick={handleBlogUpdate}>
+            Heart
+          </button>{" "}
+        </p>
+        <p>Added by: {blog.user.name}</p>
+        {user.name === blog.user.name ? (
+          <button className="remove-button" onClick={handleBlogDelete}>
+            Remove
+          </button>
+        ) : null}
+      </div>
     </div>
   );
-};
-
-Blog.propTypes = {
-  blog: PropTypes.object.isRequired,
-  showRemoveBtn: PropTypes.bool.isRequired,
 };
 
 export default Blog;

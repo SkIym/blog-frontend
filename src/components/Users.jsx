@@ -10,7 +10,6 @@ const Users = () => {
   const users = useSelector(state => state.users)
   const match = useMatch('/users/:id')
   const userToShow = match ? users.find((u) => u.id === match.params.id) : null
-  console.log(match)
 
   return (
     <div>
