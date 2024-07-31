@@ -37,11 +37,11 @@ const Blog = ({ blog }) => {
           </button>{" "}
         </p>
         <p>Added by: {blog.user.name}</p>
-        {user.name === blog.user.name ? (
+        { user ? (user.name === blog.user.name ? (
           <button className="remove-button" onClick={handleBlogDelete}>
             Remove
           </button>
-        ) : null}
+        ) : null) : null}
       </div>
     </div>
   );

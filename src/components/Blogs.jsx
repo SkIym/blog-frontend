@@ -48,7 +48,7 @@ const Blogs = () => {
             </div>
           </div>
         }></Route>
-        <Route path="/blogs/:id" element={<Blog blog={blog}/>}></Route>
+        <Route path="/:id" element={<Blog blog={blog}/>}></Route>
       </Routes>
     </div>
   );

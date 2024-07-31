@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { initializeBlogs } from "./reducers/blogReducer";
 import { getLoggedInUser, logoutUser } from "./reducers/userReducer";
 import {
-  Routes, Route
+  Routes, Route, Link, Navigate
 } from "react-router-dom"
 import { initializeUsers } from "./reducers/usersReducer";
 import Users from "./components/Users";
@@ -20,11 +20,11 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getLoggedInUser());
+    dispatch(initializeBlogs())
   }, []);
 
   useEffect(() => {
     if (user) {
-      dispatch(initializeBlogs())
       dispatch(initializeUsers())
     }
   }, [user])
@@ -34,28 +34,26 @@ const App = () => {
   }
 
   return (
-    <div className="blog-display">
-      {user === null ? (
-        <div>
-          <h3>Log in to application</h3>
-          <Notification/>
-          <LoginForm />
-        </div>
-      ) : (
-        <div>
-          <Notification/>
+    <div>
+      <div className="nav">
+        <Link to="/">Blogs</Link>
+        <Link to="/users">Users</Link>
+        {user ?
           <div className="log-details">
             <p>{user.name} logged in</p>
             <button onClick={handleLogout}>Logout</button>
-          </div>
-          <Routes>
-            <Route path="/users/*" element={<Users/>}></Route>
-            <Route path="/*" element={<Blogs/>}></Route>
-          </Routes>
-        </div>
-
-      )}
-
+          </div> :
+          <Link to="/login">Login</Link>}
+      </div>
+      <div className="blog-display">
+        <Notification/>
+        <Routes>
+          <Route path="/users/*" element={user ? <Users/>: <Navigate replace to='/login'/>}></Route>
+          <Route path="/*" element={<Blogs/>}></Route>
+          <Route path="/login" element={<LoginForm/>}></Route>
+          <Route path="/blogs/*" element={<Blogs/>}></Route>
+        </Routes>
+      </div>
     </div>
   );
 
