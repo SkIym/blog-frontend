@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deleteBlog, updateBlog } from "../reducers/blogReducer";
+import blogs from "../services/blogs";
 
 const Blog = ({ blog }) => {
 
@@ -21,7 +22,7 @@ const Blog = ({ blog }) => {
   if (!blog) {
     return null
   }
-
+  console.log(blog.id, user.token)
   return (
     <div className="blog-card">
       <div className="blog-always-shown">
@@ -42,6 +43,14 @@ const Blog = ({ blog }) => {
             Remove
           </button>
         ) : null) : null}
+      </div>
+      <div className="comment-section">
+        <p>Comments</p>
+        <ul>
+          {blog.comments.map(c => {
+            return <p key={c}>{c}</p>
+          })}
+        </ul>
       </div>
     </div>
   );
