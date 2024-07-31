@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { deleteBlog, updateBlog } from "../reducers/blogReducer";
-import blogs from "../services/blogs";
+import { deleteBlog, likeBlog } from "../reducers/blogReducer";
+import CommentForm from "./CommentForm";
 
 const Blog = ({ blog }) => {
 
@@ -8,7 +8,7 @@ const Blog = ({ blog }) => {
   const dispatch = useDispatch();
 
   const handleBlogUpdate = async () => {
-    dispatch(updateBlog(blog));
+    dispatch(likeBlog(blog));
   };
 
   const handleBlogDelete = async () => {
@@ -22,7 +22,7 @@ const Blog = ({ blog }) => {
   if (!blog) {
     return null
   }
-  console.log(blog.id, user.token)
+
   return (
     <div className="blog-card">
       <div className="blog-always-shown">
@@ -46,6 +46,7 @@ const Blog = ({ blog }) => {
       </div>
       <div className="comment-section">
         <p>Comments</p>
+        {user ? <CommentForm blogId={blog.id}/> : null}
         <ul>
           {blog.comments.map(c => {
             return <p key={c}>{c}</p>
