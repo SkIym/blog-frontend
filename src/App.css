@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300;400;500;600;700&display=swap");
 *,
 ::after,
 ::before {
@@ -7,7 +8,7 @@
   padding: 0;
   box-sizing: border-box;
   font: 100% "Hind Madurai", sans-serif;
-  color: black;
+  color: rgb(70, 70, 70);
 }
 
 h2,
@@ -27,6 +28,23 @@ button {
 a {
   text-decoration: none;
   cursor: pointer;
+}
+
+.content-display {
+  margin-top: 20px;
+}
+
+.content-list {
+  padding: 20px;
+  background-color: rgb(255, 253, 242);
+  box-shadow: 0px 1px 4px rgb(142, 142, 142);
+}
+
+.page-title {
+  font-size: 1.3em;
+  margin-bottom: 20px;
+  text-align: left;
+  border-bottom: 1px dashed black;
 }
 
 .error {
@@ -95,7 +113,7 @@ a {
   padding: 0;
   box-sizing: border-box;
   font: 100% "Hind Madurai", sans-serif;
-  color: black;
+  color: rgb(70, 70, 70);
 }
 
 h2,
@@ -117,37 +135,36 @@ a {
   cursor: pointer;
 }
 
-#root {
-  display: flex;
-  width: 80%;
-  justify-content: center;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  border: 1px solid black;
-  background-color: #f8fafb;
+.content-display {
+  margin-top: 20px;
 }
-#root div {
-  width: 100%;
+
+.content-list {
+  padding: 20px;
+  background-color: rgb(255, 253, 242);
+  box-shadow: 0px 1px 4px rgb(142, 142, 142);
+}
+
+.page-title {
+  font-size: 1.3em;
+  margin-bottom: 20px;
+  text-align: left;
+  border-bottom: 1px dashed black;
 }
 
 .blog-form-container {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
   padding: 10px;
-}
-
-.blog-form-container > * {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .blog-show-when-visible {
   display: flex;
   flex-direction: column;
+  background-color: rgb(238, 248, 249);
+  padding: 10px;
+  border: 1px solid rgb(30, 44, 236);
+  border-radius: 10px;
+  box-shadow: 0 2px 3px rgb(199, 199, 199);
 }
 
 .blog-form {
@@ -156,11 +173,14 @@ a {
   gap: 10px;
   padding: 10px;
   margin-top: 10px;
-  border: 1px solid black;
 }
 
 .blog-form > button {
   align-self: center;
+  margin-top: 20px;
+  padding: 5px 20px;
+  border-radius: 10px;
+  border: 1px solid green;
 }
 
 .blog-form > div {
@@ -173,10 +193,89 @@ a {
 .blog-form > div > input {
   padding: 5px;
   width: 100%;
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid rgb(70, 70, 70);
 }
 
 .blog-form > div > span {
   padding: 5px;
+}
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font: 100% "Hind Madurai", sans-serif;
+  color: rgb(70, 70, 70);
+}
+
+h2,
+h1,
+h3,
+h4 {
+  font-weight: 700;
+}
+
+button {
+  padding: 0 20px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.content-display {
+  margin-top: 20px;
+}
+
+.content-list {
+  padding: 20px;
+  background-color: rgb(255, 253, 242);
+  box-shadow: 0px 1px 4px rgb(142, 142, 142);
+}
+
+.page-title {
+  font-size: 1.3em;
+  margin-bottom: 20px;
+  text-align: left;
+  border-bottom: 1px dashed black;
+}
+
+#root {
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: #f8fafb;
+}
+#root div {
+  width: 100%;
+}
+
+#add-form-button {
+  display: flex;
+  justify-content: start;
+}
+#add-form-button button {
+  color: rgb(30, 44, 236);
+  border: 1px solid rgb(30, 44, 236);
+  border-radius: 5px;
+  padding: 5px 20px;
+  transition: 0.3s;
+  background-color: white;
+}
+#add-form-button button:hover {
+  background-color: rgb(238, 248, 249);
+  padding: 5px 30px;
 }
 
 .blog-card {

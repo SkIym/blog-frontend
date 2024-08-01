@@ -45,15 +45,13 @@ const App = () => {
           </div> :
           <Link to="/login"><span>Login</span></Link>}
       </div>
-      <div className="blog-display">
-        <Notification/>
-        <Routes>
-          <Route path="/users/*" element={user ? <Users/>: <Navigate replace to='/login'/>}></Route>
-          <Route path="/*" element={<Blogs/>}></Route>
-          <Route path="/login" element={<LoginForm/>}></Route>
-          <Route path="/blogs/*" element={<Blogs/>}></Route>
-        </Routes>
-      </div>
+      <Notification/>
+      <Routes>
+        <Route path="/users/*" element={user ? <Users/>: <Navigate replace to='/login'/>}></Route>
+        <Route path="/*" element={<Blogs/>}></Route>
+        <Route path="/login" element={<LoginForm/>}></Route>
+        <Route path="/blogs/*" element={<Blogs/>}></Route>
+      </Routes>
     </div>
   );
 

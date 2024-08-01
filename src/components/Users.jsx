@@ -15,20 +15,22 @@ const Users = () => {
     <div>
       <Routes>
         <Route path='/' element={
-          <div>
-            <h3>Users</h3>
-            <div className="user-card">
-              <p>User</p>
-              <p>No. of blogs</p>
+          <div className="content-display">
+            <h1 className="page-title">Users</h1>
+            <div className="content-list">
+              <div className="user-card">
+                <p>User</p>
+                <p>No. of blogs</p>
+              </div>
+              {users.map((user) => {
+                return (
+                  <div key={user.id} className="user-card">
+                    <Link to={`/users/${user.id}`}><p>{user.name}</p></Link>
+                    <p>{user.blogs.length}</p>
+                  </div>
+                )
+              })}
             </div>
-            {users.map((user) => {
-              return (
-                <div key={user.id} className="user-card">
-                  <Link to={`/users/${user.id}`}><p>{user.name}</p></Link>
-                  <p>{user.blogs.length}</p>
-                </div>
-              )
-            })}
           </div>}></Route>
         <Route path="/:id" element={<User user={userToShow} />}></Route>
       </Routes>

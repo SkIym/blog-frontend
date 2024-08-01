@@ -22,8 +22,8 @@ const Blogs = () => {
   const blog = match ? blogs.find(b => b.id === match.params.id) : null
 
   return (
-    <div>
-      <h2>Blogs</h2>
+    <div className="content-display">
+      <h1 className="page-title">Blogs</h1>
       <Routes>
         <Route path="/" element={
           <div>
@@ -33,18 +33,20 @@ const Blogs = () => {
               ref={blogFormRef}
             ><BlogForm toggleForm={toggleForm} />
             </Togglable>
-            <div>
-              {blogs.length === 0 ? (
-                <div>No blogs yet</div>
-              ) : (
-                blogs.map((blog) => {
-                  return (
-                    <div key={blog.id} className="blog-card">
-                      <Link to={`/blogs/${blog.id}`}><p>{blog.title}</p></Link>
-                    </div>
-                  );
-                })
-              )}
+            <div className="content-list">
+              <div>
+                {blogs.length === 0 ? (
+                  <div>No blogs yet</div>
+                ) : (
+                  blogs.map((blog) => {
+                    return (
+                      <div key={blog.id} className="blog-card">
+                        <Link to={`/blogs/${blog.id}`}><p>{blog.title}</p></Link>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
             </div>
           </div>
         }></Route>
