@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 .eslintrc.cjs
+*.map
+sass-cache
+src/assets
+src/sass
 
 # Editor directories and files
 .vscode/*

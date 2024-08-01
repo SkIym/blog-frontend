@@ -1,15 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300;400;500;600;700&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300;400;500;600;700&display=swap");
 *,
 ::after,
 ::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* border: 1px solid black; */
-  font-family: "Hind Madurai", sans-serif;
-  font-weight: 500;
-  font-style: normal;
+  font: 100% "Hind Madurai", sans-serif;
+  color: black;
 }
 
 h2,
@@ -20,16 +18,15 @@ h4 {
 }
 
 button {
-  padding: 10px 20px;
+  padding: 0 20px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background-color: transparent;
 }
 
-#root {
-  display: flex;
-  width: 80%;
-  justify-content: center;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+a {
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .error {
@@ -49,20 +46,89 @@ button {
   margin: 10px 0;
 }
 
-.blog-display {
-  width: 100%;
+#nav {
+  display: flex;
+  padding: 10px 20px;
+  justify-content: start;
+  align-items: center;
+  gap: 3%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 2px rgb(218, 217, 217);
+}
+#nav a {
+  color: rgb(77, 77, 77);
+  white-space: normal;
+  transition: 0.3s;
+  border-bottom: 1px solid transparent;
+}
+#nav a:hover {
+  text-align: left;
+  border-bottom: 1px solid gray;
+}
+#nav a:last-child {
+  margin-left: auto;
 }
 
 .log-details {
   display: flex;
-  justify-content: center;
+  margin-left: auto;
+  justify-content: end;
+  gap: 3%;
   align-items: center;
-  gap: 10px;
-  margin: 10px 0;
+}
+.log-details button {
+  color: rgb(251, 110, 110);
+  border-radius: 5px;
+  transition: 0.3s;
+  border: 1px solid red;
+}
+.log-details button:hover {
+  color: white;
+  background-color: rgb(251, 110, 110);
 }
 
-.log-details > p {
-  padding: 10px;
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font: 100% "Hind Madurai", sans-serif;
+  color: black;
+}
+
+h2,
+h1,
+h3,
+h4 {
+  font-weight: 700;
+}
+
+button {
+  padding: 0 20px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#root {
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid black;
+  background-color: #f8fafb;
+}
+#root div {
+  width: 100%;
 }
 
 .blog-form-container {
@@ -164,3 +230,5 @@ button {
   margin: 10px 0;
   border: 1px solid black;
 }
+
+/*# sourceMappingURL=App.css.map */

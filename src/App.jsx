@@ -35,15 +35,15 @@ const App = () => {
 
   return (
     <div>
-      <div className="nav">
-        <Link to="/">Blogs</Link>
-        <Link to="/users">Users</Link>
+      <div id="nav">
+        <Link to="/"><span>Blogs</span></Link>
+        <Link to="/users"><span>Users</span></Link>
         {user ?
           <div className="log-details">
-            <p>{user.name} logged in</p>
+            <p>{user.name} is logged in</p>
             <button onClick={handleLogout}>Logout</button>
           </div> :
-          <Link to="/login">Login</Link>}
+          <Link to="/login"><span>Login</span></Link>}
       </div>
       <div className="blog-display">
         <Notification/>
