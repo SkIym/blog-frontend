@@ -11,8 +11,12 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    dispatch(loginUser(username.value, password.value));
-    navigate("/")
+    try {
+      await dispatch(loginUser(username.value, password.value));
+      navigate("/")
+    } catch (err) {
+      return
+    }
   };
 
   return (
