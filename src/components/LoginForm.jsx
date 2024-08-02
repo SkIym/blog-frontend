@@ -20,15 +20,15 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
-      <h3>Log in to application</h3>
-      <form onSubmit={handleLogin}>
+    <div id="login">
+      <h1 className="page-title">Log in to application</h1>
+      <form onSubmit={handleLogin} id="login-form">
         <div>
-          <span>username</span>
+          <span>Username:</span>
           <input {...username} data-testid="username" />
         </div>
         <div>
-          <span>password</span>
+          <span>Password:</span>
           <input {...password} data-testid="password" />
         </div>
         <button type="submit">Login</button>
