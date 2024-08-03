@@ -7,15 +7,15 @@ const LoginForm = () => {
   const { reset: usernameReset, ...username } = useField("text");
   const { reset: passwordReset, ...password } = useField("password");
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await dispatch(loginUser(username.value, password.value));
-      navigate("/")
+      navigate("/");
     } catch (err) {
-      return
+      return;
     }
   };
 

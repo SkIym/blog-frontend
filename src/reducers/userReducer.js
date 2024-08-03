@@ -38,7 +38,7 @@ export const loginUser = (username, password) => {
       dispatch(setUser(user));
     } catch (err) {
       dispatch(showNotification("error", err, 4));
-      return Promise.reject()
+      return Promise.reject();
     }
   };
 };

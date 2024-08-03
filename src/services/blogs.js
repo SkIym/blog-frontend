@@ -55,14 +55,18 @@ const remove = async (id) => {
 const comment = async (id, content) => {
   const config = {
     headers: { Authorization: token },
-  }
+  };
   try {
-    const response = await axios.post(`${baseUrl}/${id}/comments`, content, config)
-    return response.data
+    const response = await axios.post(
+      `${baseUrl}/${id}/comments`,
+      content,
+      config,
+    );
+    return response.data;
   } catch (err) {
-    return Promise.reject(err.response.data.error)
+    return Promise.reject(err.response.data.error);
   }
-}
+};
 
 export default {
   getAll,

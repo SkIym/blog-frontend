@@ -3,8 +3,7 @@ import { deleteBlog, likeBlog } from "../reducers/blogReducer";
 import CommentForm from "./CommentForm";
 
 const Blog = ({ blog }) => {
-
-  const user = useSelector(state => state.user)
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleBlogUpdate = async () => {
@@ -20,7 +19,7 @@ const Blog = ({ blog }) => {
   };
 
   if (!blog) {
-    return null
+    return null;
   }
 
   return (
@@ -38,18 +37,20 @@ const Blog = ({ blog }) => {
           </button>{" "}
         </p>
         <p>Added by: {blog.user.name}</p>
-        { user ? (user.name === blog.user.name ? (
-          <button className="remove-button" onClick={handleBlogDelete}>
-            Remove
-          </button>
-        ) : null) : null}
+        {user ? (
+          user.name === blog.user.name ? (
+            <button className="remove-button" onClick={handleBlogDelete}>
+              Remove
+            </button>
+          ) : null
+        ) : null}
       </div>
       <div className="comment-section">
         <p>Comments</p>
-        {user ? <CommentForm blogId={blog.id}/> : null}
+        {user ? <CommentForm blogId={blog.id} /> : null}
         <ul>
-          {blog.comments.map(c => {
-            return <p key={c}>{c}</p>
+          {blog.comments.map((c) => {
+            return <p key={c}>{c}</p>;
           })}
         </ul>
       </div>
